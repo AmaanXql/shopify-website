@@ -46,7 +46,7 @@ export default function ReferenceSection() {
             <h3 className="gradient-text absolute -top-9 left-4 text-xl font-semibold sm:text-2xl">
               {item.theme}
             </h3>
-            <p className="absolute -bottom-8 left-4 text-xs text-gray-500 sm:text-sm">{item.category}</p>
+            {/* <p className="absolute -bottom-8 left-4 text-xs text-gray-500 sm:text-sm">{item.category}</p> */}
 
             <AnimatePresence mode="wait">
               <motion.div
@@ -58,7 +58,7 @@ export default function ReferenceSection() {
               >
                 <Image
                   src={item.image}
-                  width={1200}
+                  width={120}
                   height={700}
                   alt="reference preview"
                   className="w-full rounded-xl"

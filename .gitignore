@@ -1,0 +1,29 @@
+# Dependencies
+/node_modules
+./node_modules
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Production
+/build
+/dist
+
+# Shopify specific
+.shopify
+.env
+*.log
+dist/
+.cache/
+
+# IDEs and editors
+/.idea
+/.vscode
+*.swp
+*.swo
+.DS_Store
+
+# Temporary files
+/tmp

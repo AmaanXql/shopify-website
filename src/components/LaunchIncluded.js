@@ -1,7 +1,9 @@
-"use client";
+
+
+'use client'
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Check,
   ChevronDown,
@@ -12,9 +14,8 @@ import {
   Smartphone,
   Puzzle,
   ImageIcon,
-  FileText,
+  FileText
 } from "lucide-react";
-import { fadeUp, stagger, viewport } from "./animations";
 
 const items = [
   {
@@ -54,111 +55,173 @@ const items = [
     ],
   },
   {
-    title: "Mobile, Speed and QA",
+    title: "Mobile, speed, and QA",
     icon: Smartphone,
-    points: ["Mobile responsiveness", "Performance optimization", "Final QA testing"],
+    points: [
+      "Mobile responsiveness",
+      "Performance optimization",
+      "Final QA testing",
+    ],
   },
   {
-    title: "Apps Included",
+    title: "Apps included (standard setup)",
     icon: Puzzle,
-    points: ["Install recommended apps", "Basic configuration", "Integration testing"],
+    points: [
+      "Install recommended apps",
+      "Basic configuration",
+      "Integration testing",
+    ],
   },
   {
-    title: "Graphics",
+    title: "Graphics (fixed)",
     icon: ImageIcon,
-    points: ["Homepage banners", "Collection thumbnails", "Basic brand visuals"],
+    points: [
+      "Homepage banners",
+      "Collection thumbnails",
+      "Basic brand visuals",
+    ],
   },
   {
     title: "Pages and Policies",
     icon: FileText,
-    points: ["Privacy policy", "Refund policy", "Terms & conditions"],
+    points: [
+      "Privacy policy",
+      "Refund policy",
+      "Terms & conditions",
+    ],
   },
 ];
 
 export default function LaunchIncluded() {
+
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <section className="bg-[#fafafa] py-16 md:py-24">
-      <motion.div
-        variants={stagger}
-        initial="hidden"
-        whileInView="show"
-        viewport={viewport}
-        className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-10"
-      >
-        <motion.div variants={fadeUp} className="mb-12 flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-          <div className="max-w-xl">
-            <h2 className="mb-3 text-2xl font-bold sm:text-3xl">Everything Included in the Launch</h2>
-            <p className="text-sm text-gray-500 sm:text-base">
-              Clear deliverables and clear limits. Built on Dawn using one approved reference for speed and predictability.
-            </p>
-          </div>
+    <section className="py-16 md:py-20 lg:py-24 bg-[#fafafa]">
+
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10">
+
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-10">
+
+             {/* Heading */}
+             <div className="max-w-xl mb-10 lg:mb-14">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-3">
+          Everything Included in the Launch
+          </h2>
+
+          <p className="text-gray-500 text-sm sm:text-base">
+          Clear deliverables. Clear limits. Built on Dawn using one
+          approved reference—so you get speed and predictability.
+          </p>
+        </div>
+
+            
 
           <div className="md:text-right">
-            <p className="mb-1 text-xs tracking-[0.2em] text-gray-400">FIXED PRICE</p>
-            <p className="text-4xl font-bold">$799</p>
-            <p className="text-lg font-bold text-purple-500 line-through">$1499</p>
+
+            <p className="text-xs tracking-[0.2em] text-gray-400 mb-1">
+              FIXED PRICE
+            </p>
+
+            <p className="text-3xl sm:text-4xl font-bold">
+              $799
+            </p>
+
+            <p className="text-purple-500 font-bold text-lg line-through">
+              $1499
+            </p>
+
           </div>
-        </motion.div>
 
+        </div>
+
+        {/* Cards Section */}
         <div className="relative">
-          <AnimatePresence initial={false}>
-            <motion.div
-              key={expanded ? "open" : "closed"}
-              initial={{ height: 380 }}
-              animate={{ height: expanded ? "auto" : 380 }}
-              transition={{ duration: 0.45 }}
-              className="overflow-hidden"
-            >
-              <motion.div variants={stagger} className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                {items.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <motion.article
-                      key={item.title}
-                      variants={fadeUp}
-                      whileHover={{ y: -4 }}
-                      className="rounded-2xl border border-gray-200 bg-white p-6"
-                    >
-                      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100">
-                        <Icon size={18} className="text-gray-700" />
-                      </div>
 
-                      <h3 className="mb-4 text-base font-semibold">{item.title}</h3>
+          <motion.div
+            animate={{ height: expanded ? "auto" : 380 }}
+            transition={{ duration: 0.5 }}
+            className="overflow-hidden"
+          >
 
-                      <ul className="space-y-2 text-sm text-gray-500">
-                        {item.points.map((point) => (
-                          <li key={point} className="flex items-start gap-2">
-                            <Check size={14} className="mt-[2px] text-gray-400" />
-                            {point}
-                          </li>
-                        ))}
-                      </ul>
-                    </motion.article>
-                  );
-                })}
-              </motion.div>
-            </motion.div>
-          </AnimatePresence>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
 
+              {items.map((item, i) => {
+                const Icon = item.icon;
+
+                return (
+                  <div
+                    key={i}
+                    className="bg-white rounded-2xl p-5 sm:p-6 border border-gray-200 hover:shadow-sm transition"
+                  >
+
+                    {/* Icon */}
+                    <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 mb-4">
+                      <Icon size={18} className="text-gray-700" />
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="font-semibold mb-4 text-sm md:text-base">
+                      {item.title}
+                    </h3>
+
+                    {/* Points */}
+                    <ul className="space-y-2 text-xs sm:text-sm text-gray-500">
+
+                      {item.points.map((point, index) => (
+                        <li
+                          key={index}
+                          className="flex gap-2 items-start"
+                        >
+
+                          <Check
+                            size={14}
+                            className="text-gray-400 mt-[2px]"
+                          />
+
+                          {point}
+
+                        </li>
+                      ))}
+
+                    </ul>
+
+                  </div>
+                )
+              })}
+
+            </div>
+
+          </motion.div>
+
+          {/* Gradient Fade */}
           {!expanded && (
-            <div className="pointer-events-none absolute bottom-0 left-0 h-60 w-full bg-gradient-to-t from-[#f6f6f8] to-transparent" />
+            <div className="absolute bottom-0 left-0 w-full h-56 md:h-60 bg-gradient-to-t from-[#f6f6f8] to-transparent pointer-events-none" />
           )}
 
+          {/* Show More Button */}
           {!expanded && (
-            <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={viewport} className="absolute bottom-16 left-1/2 z-20 -translate-x-1/2">
+            <div className="absolute left-1/2 bottom-14 md:bottom-16 -translate-x-1/2 z-20">
+
               <button
                 onClick={() => setExpanded(true)}
-                className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-8 py-3 text-sm shadow-sm transition hover:shadow"
+                className="px-6 md:px-8 py-3 text-xs sm:text-sm bg-white border border-gray-200 rounded-full shadow-sm hover:shadow-md transition flex items-center gap-2"
               >
+
                 Show More
-                <ChevronDown className="h-4 w-4" />
+
+                <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5" />
+
               </button>
-            </motion.div>
+
+            </div>
           )}
+
         </div>
-      </motion.div>
+
+      </div>
+
     </section>
   );
 }

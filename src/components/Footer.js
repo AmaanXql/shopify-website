@@ -10,7 +10,7 @@ export default function Footer() {
       initial="hidden"
       whileInView="show"
       viewport={viewport}
-      className="mt-10 border-t border-gray-200 bg-[#f5f5f5] py-16"
+      className="mt-20 border-t border-gray-200 bg-[#f5f5f5] py-16"
     >
       <div className="mx-auto max-w-6xl px-6 text-center">
         <p className="mb-4 text-xs tracking-[0.35em] text-gray-500">XQL SYSTEMS</p>
