@@ -91,7 +91,7 @@ export default function Hero() {
           <div className="relative z-10 w-full max-w-5xl">
             <div className="bg-white rounded-t-2xl shadow-xl border-t border-r border-l overflow-hidden">
 
-              <div className="flex items-center gap-2 px-4 py-3 border-b bg-gray-100">
+              <div className="flex items-center gap-2 px-4 py-3 border-b bg-white">
                 <span className="w-3 h-3 bg-red-400 rounded-full"></span>
                 <span className="w-3 h-3 bg-yellow-400 rounded-full"></span>
                 <span className="w-3 h-3 bg-green-400 rounded-full"></span>
