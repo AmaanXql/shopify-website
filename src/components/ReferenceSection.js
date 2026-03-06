@@ -58,9 +58,11 @@ export default function ReferenceSection() {
               >
                 <Image
                   src={item.image}
-                  width={120}
+                  width={1200}
                   height={700}
                   alt="reference preview"
+                  priority
+                  quality={100}
                   className="w-full rounded-xl"
                 />
               </motion.div>
