@@ -16,6 +16,7 @@ import {
   ImageIcon,
   FileText
 } from "lucide-react";
+import { fadeUp, stagger, viewport } from "./animations";
 
 const items = [
   {
@@ -99,26 +100,31 @@ export default function LaunchIncluded() {
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-[#fafafa]">
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10">
+      <motion.div
+        variants={stagger}
+        initial="hidden"
+        whileInView="show"
+        viewport={viewport}
+        className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10">
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-10">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-0 md:gap-10 mb-4 md:mb-0">
 
-             {/* Heading */}
-             <div className="max-w-xl mb-10 lg:mb-14">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-3">
-          Everything Included in the Launch
-          </h2>
+          {/* Heading */}
+          <motion.div variants={fadeUp} className="max-w-xl mb-10 lg:mb-14">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3">
+              Everything Included in the Launch
+            </h2>
 
-          <p className="text-gray-500 text-sm sm:text-base">
-          Clear deliverables. Clear limits. Built on Dawn using one
-          approved reference—so you get speed and predictability.
-          </p>
-        </div>
+            <p className="text-gray-500 text-sm sm:text-base">
+              Clear deliverables. Clear limits. Built on Dawn using one
+              approved reference—so you get speed and predictability.
+            </p>
+          </motion.div>
 
-            
 
-          <div className="md:text-right">
+
+          <motion.div variants={fadeUp} className="md:text-right">
 
             <p className="text-xs tracking-[0.2em] text-gray-400 mb-1">
               FIXED PRICE
@@ -132,12 +138,12 @@ export default function LaunchIncluded() {
               $1499
             </p>
 
-          </div>
+          </motion.div>
 
         </div>
 
         {/* Cards Section */}
-        <div className="relative">
+        <motion.div variants={fadeUp} className="relative">
 
           <motion.div
             animate={{ height: expanded ? "auto" : 380 }}
@@ -218,9 +224,9 @@ export default function LaunchIncluded() {
             </div>
           )}
 
-        </div>
+        </motion.div>
 
-      </div>
+      </motion.div>
 
     </section>
   );

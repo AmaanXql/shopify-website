@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from "lucide-react";
 import { fadeUp, stagger, viewport } from "./animations";
 
 const testimonials = [
@@ -73,10 +73,59 @@ export default function TestimonialSection() {
           </p>
         </motion.div>
 
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-8 md:gap-6 items-center">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-6 md:gap-6 items-center">
 
           {/* Avatar Column */}
-          <motion.div variants={fadeUp}  className="flex items-center gap-4 md:gap-6">
+          <motion.div variants={fadeUp} className="w-full md:w-auto">
+
+            {/* Mobile Avatar + Controls */}
+            <div className="flex md:hidden flex-col items-center gap-4">
+              <div className="flex items-center justify-center gap-3">
+                {[index - 1, index, index + 1].map((i, pos) => {
+                  const safeIndex = (i + testimonials.length) % testimonials.length;
+                  const item = testimonials[safeIndex];
+                  const isActive = pos === 1;
+
+                  return (
+                    <div
+                      key={`mobile-${safeIndex}-${pos}`}
+                      className={`relative overflow-hidden rounded-xl transition-all duration-300 ${
+                        isActive
+                          ? "w-24 h-24 p-[2px] bg-gradient-to-r from-blue-500 to-purple-500 scale-100"
+                          : "w-16 h-16 opacity-50 grayscale"
+                      }`}
+                    >
+                      <Image
+                        src={item.image}
+                        className="w-full h-full object-cover rounded-xl"
+                        width={500}
+                        height={500}
+                        alt="Testimonial"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={prev}
+                  className="w-9 h-9 rounded-full bg-white shadow flex items-center justify-center hover:bg-gray-50 transition"
+                >
+                  <ArrowLeft size={16} />
+                </button>
+
+                <button
+                  onClick={next}
+                  className="w-9 h-9 rounded-full bg-white shadow flex items-center justify-center hover:bg-gray-50 transition"
+                >
+                  <ArrowRight size={16} />
+                </button>
+              </div>
+            </div>
+
+            {/* Desktop Avatar Rail */}
+            <div className="hidden md:flex items-center gap-6">
 
             {/* arrows */}
             <div className="flex flex-col gap-3 md:gap-4">
@@ -127,6 +176,7 @@ export default function TestimonialSection() {
               })}
 
             </div>
+            </div>
 
           </motion.div>
 
@@ -136,7 +186,7 @@ export default function TestimonialSection() {
             <div className="relative bg-white rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm flex flex-col justify-center w-full">
 
               {/* Quote Decoration */}
-              <div className="absolute right-2 top-0 text-[120px] md:text-[240px] text-gray-100 font-serif leading-none">
+              <div className="absolute right-2 -top-3 text-[90px] sm:text-[120px] md:text-[240px] text-gray-100 font-serif leading-none">
                 ”
               </div>
 
@@ -151,11 +201,11 @@ export default function TestimonialSection() {
                   className="relative z-10"
                 >
 
-                  <p className="text-lg sm:text-xl md:text-3xl font-medium text-gray-800 mb-8 md:mb-24 max-w-xl">
+                  <p className="text-base sm:text-xl md:text-3xl font-medium text-gray-800 mb-6 md:mb-24 max-w-xl">
                     {current.text}
                   </p>
 
-                  <h4 className="font-bold text-xl sm:text-2xl md:text-4xl mb-1 md:mb-2">
+                  <h4 className="font-bold text-lg sm:text-2xl md:text-4xl mb-1 md:mb-2">
                     {current.name}
                   </h4>
 

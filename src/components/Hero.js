@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { fadeUp, stagger, viewport } from "./animations";
 import AnimatedPrice from "./AnimatedPrice";
+import { CheckCircle } from "lucide-react";
 
 export default function Hero() {
   return (
@@ -42,14 +43,23 @@ export default function Hero() {
         </motion.div>
 
         <motion.div variants={fadeUp} className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-gray-500 md:text-sm">
-          <span>Built on Shopify</span>
-          <span>Fast Launch</span>
-          <span>14-Day Support</span>
+        <div className="flex items-center gap-1">
+            <CheckCircle size={13} className="text-purple-500" />
+            <span>Built on Shopify</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <CheckCircle size={13} className="text-purple-500" />
+            <span>Fast Launch</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <CheckCircle size={13} className="text-purple-500" />
+            <span>14-Day Support</span>
+          </div>
         </motion.div>
 
        
 
-        <motion.div variants={fadeUp} className="relative mx-auto mt-12 flex max-w-6xl justify-center md:mt-16">
+        <motion.div variants={fadeUp} className="relative mx-auto mt-8 flex max-w-6xl justify-center md:mt-16">
 
           {/* LEFT SCREEN (hide mobile) */}
           <div className="hidden md:block absolute left-[-50px] top-6 w-[820px] scale-[0.92] opacity-30 z-0 pointer-events-none">

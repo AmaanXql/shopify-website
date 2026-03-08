@@ -4,7 +4,7 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { fadeUp, viewport } from "./animations";
+import { fadeUp, stagger, viewport } from "./animations";
 
 const references = [
   {
@@ -21,20 +21,20 @@ export default function ReferenceSection() {
   return (
     <section className="bg-white py-16 lg:py-24">
       <motion.div
-        variants={fadeUp}
+        variants={stagger}
         initial="hidden"
         whileInView="show"
         viewport={viewport}
         className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12"
       >
-        <div className="mb-12 max-w-xl">
+        <motion.div variants={fadeUp}  className="mb-12 max-w-xl">
           <h2 className="mb-3 text-2xl font-bold sm:text-3xl">Choose a Reference We Can Build Fast</h2>
           <p className="text-sm text-gray-500 sm:text-base">
             Pick one layout from our Dawn-ready references. This keeps scope fixed and delivery predictable.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="relative flex items-center justify-center">
+        <motion.div variants={stagger} className="relative flex items-center justify-center">
           <button
             onClick={() => setIndex((prev) => (prev === 0 ? references.length - 1 : prev - 1))}
             className="absolute left-0 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow"
@@ -42,7 +42,7 @@ export default function ReferenceSection() {
             <ChevronLeft size={20} />
           </button>
 
-          <div className="relative w-full max-w-4xl">
+          <motion.div variants={fadeUp} className="relative w-full max-w-4xl">
             <h3 className="gradient-text absolute -top-9 left-4 text-xl font-semibold sm:text-2xl">
               {item.theme}
             </h3>
@@ -67,7 +67,7 @@ export default function ReferenceSection() {
                 />
               </motion.div>
             </AnimatePresence>
-          </div>
+          </motion.div>
 
           <button
             onClick={() => setIndex((prev) => (prev + 1) % references.length)}
@@ -75,7 +75,7 @@ export default function ReferenceSection() {
           >
             <ChevronRight size={20} />
           </button>
-        </div>
+        </motion.div>
       </motion.div>
     </section>
   );
