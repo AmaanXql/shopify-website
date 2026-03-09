@@ -6,21 +6,66 @@ import { motion } from "framer-motion";
 import { fadeUp, stagger, viewport } from "./animations";
 
 const addons = [
-  { id: 1, name: "+25 Product Uploads", price: 150 },
-  { id: 2, name: "+50 Product Uploads", price: 250 },
-  { id: 3, name: "Additional Banner Asset", price: 35 },
-  { id: 4, name: "Custom Homepage Section", price: 50 },
-  { id: 5, name: "Analytics (GA4 + Pixel) Setup", price: 75 },
-  { id: 6, name: "Additional Revision Cycle", price: 80 },
+  { id: 1, name: "+25 Product Uploads", originalPrice: 300, discountedPrice: 150, repeatable: true },
+  { id: 2, name: "+50 Product Uploads", originalPrice: 500, discountedPrice: 250, repeatable: true },
+  { id: 3, name: "Additional Banner Asset", originalPrice: 35, discountedPrice: 35 },
+  { id: 4, name: "Custom Homepage Section", originalPrice: 50, discountedPrice: 50 },
+  { id: 5, name: "Analytics (GA4 + Pixel) Setup", originalPrice: 75, discountedPrice: 70 },
+  { id: 6, name: "Additional Revision Cycle", originalPrice: 80, discountedPrice: 80 },
 ];
 
 export default function UnlockFeatures() {
-  const [selected, setSelected] = useState([1, 5]);
+  const [selected, setSelected] = useState({ 1: 1, 5: 1 });
 
-  const total = useMemo(
-    () => selected.reduce((sum, id) => sum + (addons.find((a) => a.id === id)?.price || 0), 799),
-    [selected]
-  );
+  const summary = useMemo(() => {
+    const selectedAddons = addons
+      .filter((addon) => (selected[addon.id] || 0) > 0)
+      .map((addon) => {
+        const qty = selected[addon.id] || 0;
+        return {
+          ...addon,
+          qty,
+          originalTotal: addon.originalPrice * qty,
+          discountedTotal: addon.discountedPrice * qty,
+        };
+      });
+
+    const addonsOriginalTotal = selectedAddons.reduce((sum, addon) => sum + addon.originalTotal, 0);
+    const addonsDiscountedTotal = selectedAddons.reduce((sum, addon) => sum + addon.discountedTotal, 0);
+
+    return {
+      selectedAddons,
+      grandTotal: 799 + addonsDiscountedTotal,
+      grandOriginalTotal: 1499 + addonsOriginalTotal,
+    };
+  }, [selected]);
+
+  const incrementAddon = (addonId) => {
+    setSelected((prev) => ({ ...prev, [addonId]: (prev[addonId] || 0) + 1 }));
+  };
+
+  const decrementAddon = (addonId) => {
+    setSelected((prev) => {
+      const nextQty = Math.max((prev[addonId] || 0) - 1, 0);
+      if (nextQty === 0) {
+        const next = { ...prev };
+        delete next[addonId];
+        return next;
+      }
+      return { ...prev, [addonId]: nextQty };
+    });
+  };
+
+  const toggleAddon = (addonId) => {
+    setSelected((prev) => {
+      if (prev[addonId]) {
+        const next = { ...prev };
+        delete next[addonId];
+        return next;
+      }
+      return { ...prev, [addonId]: 1 };
+    });
+  };
 
   return (
     <section id="features" className="bg-[#fafafa] py-20 lg:py-28">
@@ -45,7 +90,8 @@ export default function UnlockFeatures() {
 
           <motion.div variants={stagger} className="mb-12 grid grid-cols-1 gap-4 sm:grid-cols-2">
             {addons.map((addon) => {
-              const active = selected.includes(addon.id);
+              const qty = selected[addon.id] || 0;
+              const active = qty > 0;
               return (
                 <motion.article
                   key={addon.id}
@@ -56,19 +102,34 @@ export default function UnlockFeatures() {
                   <p className="text-gray-700">{addon.name}</p>
 
                   <div className="flex items-center gap-3">
-                    <span className="rounded-md bg-gray-100 px-3 py-1 text-sm font-semibold">${addon.price}</span>
-                    <button
-                      onClick={() =>
-                        setSelected((prev) =>
-                          prev.includes(addon.id) ? prev.filter((i) => i !== addon.id) : [...prev, addon.id]
-                        )
-                      }
-                      className={`flex h-9 w-9 items-center justify-center rounded-full transition ${
-                        active ? "bg-green-100 text-green-600" : "bg-gray-200 text-gray-700"
-                      }`}
-                    >
-                      {active ? <Check size={16} /> : <Plus size={16} />}
-                    </button>
+                    <span className="rounded-md bg-gray-100 px-3 py-1 text-sm font-semibold">
+                      ${addon.discountedPrice}
+                    </span>
+                    {addon.repeatable ? (
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => decrementAddon(addon.id)}
+                          className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-200 text-gray-700 transition hover:bg-gray-300"
+                        >
+                          -
+                        </button>
+                        <span className="min-w-7 text-center text-sm font-semibold">{qty}</span>
+                        <button
+                          onClick={() => incrementAddon(addon.id)}
+                          className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-200 text-gray-700 transition hover:bg-gray-300"
+                        >
+                          <Plus size={16} />
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => toggleAddon(addon.id)}
+                        className={`flex h-9 w-9 items-center justify-center rounded-full transition ${active ? "bg-green-100 text-green-600" : "bg-gray-200 text-gray-700"
+                          }`}
+                      >
+                        {active ? <Check size={16} /> : <Plus size={16} />}
+                      </button>
+                    )}
                   </div>
                 </motion.article>
               );
@@ -77,27 +138,74 @@ export default function UnlockFeatures() {
 
           <motion.div
             variants={fadeUp}
-            className="flex flex-col gap-8 rounded-2xl border border-gray-300 bg-white p-6 lg:flex-row lg:items-end lg:justify-between lg:p-10"
+            className="rounded-2xl border border-gray-200 bg-white p-6 lg:p-10"
           >
-            <div>
-              <h4 className="mb-3 text-lg font-semibold">Shopify Store + Add Ons</h4>
-              {selected.length === 0 ? (
-                <p className="text-gray-500">No add-ons selected.</p>
-              ) : (
-                addons
-                  .filter((addon) => selected.includes(addon.id))
-                  .map((addon) => (
-                    <p key={addon.id} className="text-gray-600">
-                      {addon.name}
-                    </p>
-                  ))
-              )}
+            {/* Pricing Summary */}
+            <div className="space-y-3">
+
+              {/* Base Shopify Store */}
+              <div className="flex items-center justify-between">
+                <span className="font-medium text-gray-800 text-lg">
+                  Shopify Store
+                </span>
+
+                <div className="flex items-center gap-3">
+                  <span className="text-purple-500 line-through text-sm">
+                    $1499
+                  </span>
+                  <span className="text-xl font-semibold">
+                    $799
+                  </span>
+                </div>
+              </div>
+
+              {/* Selected Add-ons */}
+              {summary.selectedAddons.map((addon) => (
+                <div
+                  key={addon.id}
+                  className="flex items-center justify-between text-gray-600"
+                >
+                  <span>
+                    {addon.name}
+                    {addon.qty > 1 ? ` x${addon.qty}` : ""}
+                  </span>
+
+                  <div className="flex items-center gap-3">
+                    <span className="text-purple-500 line-through text-sm">
+                      ${addon.originalTotal}
+                    </span>
+
+                    <span className="font-medium">
+                      ${addon.discountedTotal}
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
 
-            <div className="lg:text-right">
-              <p className="text-purple-500 line-through">$1499</p>
-              <p className="text-3xl font-semibold">${total}</p>
-              <motion.button whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} className="mt-6 rounded-full bg-gradient px-8 py-3 text-sm text-white">
+            {/* Divider */}
+            <div className="border-t my-6"></div>
+
+            {/* Total */}
+            <div className="mb-6 flex items-center justify-between">
+              <span className="text-lg font-semibold text-gray-800">Total</span>
+              <div className="flex items-center gap-3">
+                <span className="text-purple-500 line-through text-sm">
+                  ${summary.grandOriginalTotal}
+                </span>
+                <span className="text-2xl font-bold text-gray-900">
+                  ${summary.grandTotal}
+                </span>
+              </div>
+            </div>
+
+            {/* Button */}
+            <div className="flex justify-end">
+              <motion.button
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="rounded-full bg-gradient px-10 py-3 text-white text-sm font-medium shadow-lg"
+              >
                 Book a Call
               </motion.button>
             </div>

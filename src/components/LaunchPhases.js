@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
 import { fadeUp, stagger, viewport } from "./animations";
+import Image from "next/image";
 
 const phases = [
   {
@@ -101,10 +102,12 @@ export default function LaunchPhases() {
                       transition={{ delay: 4, duration: 0.5 }}
                       className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center shadow-lg"
                     >
-                      <img
+                      <Image
                         src="/shopify.png"
                         alt="Shopify"
                         className="w-6 h-6 sm:w-7 sm:h-7"
+                        width={100}
+                        height={100}
                       />
                     </motion.div>
 
