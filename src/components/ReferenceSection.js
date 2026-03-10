@@ -8,14 +8,18 @@ import { fadeUp, stagger, viewport } from "./animations";
 
 const references = [
   {
-    theme: "Theme Name",
+    theme: "Essentials",
     category: "Category: Health & Wellness",
-    image: "/desktopandmobile.png",
-  },
+    previewImage: "/essentialsPreview.png",
+    webViewImage: "/essentialsdesktopview.png",
+    mobileViewImage: "/essentialsdesktopview.png",
+  },  
   {
-    theme: "Fashion",
+    theme: "Skincare",
     category: "Category: Health & Wellness",
-    image: "/desktopandmobile.png",
+    previewImage: "/skincarepreview.png",
+    webViewImage: "/skincaredesktopview.png",
+    mobileViewImage: "/skincaredesktopview.png",
   },
 ];
 
@@ -23,13 +27,16 @@ export default function ReferenceSection() {
   const [index, setIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeView, setActiveView] = useState("desktop");
+  const [selectedReference, setSelectedReference] = useState(null);
   const item = references[index];
+  const modalItem = selectedReference ?? item;
   const hasMultipleReferences = references.length > 1;
 
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
         setIsModalOpen(false);
+        setSelectedReference(null);
       }
     };
 
@@ -43,6 +50,29 @@ export default function ReferenceSection() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isModalOpen]);
+
+
+  useEffect(() => {
+    if (!hasMultipleReferences) return;
+    if (isModalOpen) return;
+  
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % references.length);
+    }, 5000); // change every 5 seconds
+  
+    return () => clearInterval(interval);
+  }, [hasMultipleReferences, isModalOpen]);
+
+  const [cursor, setCursor] = useState({ x: 0, y: 0 });
+const [hover, setHover] = useState(false);
+const handleMouseMove = (e) => {
+  const rect = e.currentTarget.getBoundingClientRect();
+
+  setCursor({
+    x: e.clientX - rect.left,
+    y: e.clientY - rect.top,
+  });
+};
 
   return (
     <>
@@ -71,35 +101,53 @@ export default function ReferenceSection() {
               </button>
             )}
 
-            <motion.div variants={fadeUp} className="relative w-full max-w-4xl">
+            <motion.div variants={fadeUp} className="relative w-full max-w-4xl pb-2">
               <h3 className="gradient-text absolute -top-9 left-4 text-xl font-semibold sm:text-2xl">
                 {item.theme}
               </h3>
 
               <AnimatePresence mode="wait">
-                <motion.button
-                  key={item.image}
-                  initial={{ opacity: 0.3, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0.3, y: -10 }}
-                  transition={{ duration: 0.35 }}
-                  type="button"
-                  onClick={() => {
-                    setActiveView("desktop");
-                    setIsModalOpen(true);
-                  }}
-                  className="block w-full overflow-hidden rounded-xl border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                >
-                  <Image
-                    src={item.image}
-                    width={1200}
-                    height={700}
-                    alt="reference preview"
-                    priority
-                    quality={100}
-                    className="w-full cursor-pointer"
-                  />
-                </motion.button>
+              <motion.button
+  key={item.previewImage}
+  initial={{ y: 100, opacity: 0 }}
+  animate={{ y: 0, opacity: 1 }}
+  exit={{ y: -100, opacity: 0 }}
+  transition={{ duration: 0.3, ease: "easeInOut" }}
+  type="button"
+  onClick={() => {
+    setActiveView("desktop");
+    setSelectedReference(item);
+    setIsModalOpen(true);
+  }}
+  onMouseMove={handleMouseMove}
+  onMouseEnter={() => setHover(true)}
+  onMouseLeave={() => setHover(false)}
+  className="relative block w-full overflow-hidden rounded-xl border border-gray-100"
+>
+  <Image
+    src={item.previewImage}
+    width={1200}
+    height={700}
+    alt="reference preview"
+    priority
+    quality={100}
+    className="w-full"
+  />
+
+  {/* Cursor Preview Circle */}
+  {hover && (
+    <motion.div
+      animate={{
+        x: cursor.x - 60,
+        y: cursor.y - 60,
+      }}
+      transition={{ type: "tween", ease: "easeOut", duration: 0.3 }}
+      className="cursor-pointer absolute top-0 left-0 flex h-[90px] w-[90px] items-center justify-center rounded-full border border-white bg-black/40 text-sm font-semibold text-white backdrop-blur-md"
+    >
+      PREVIEW
+    </motion.div>
+  )}
+</motion.button>
               </AnimatePresence>
             </motion.div>
 
@@ -123,7 +171,10 @@ export default function ReferenceSection() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-[70] bg-black/60 backdrop-blur-[1px] p-3 sm:p-6"
-            onClick={() => setIsModalOpen(false)}
+            onClick={() => {
+              setIsModalOpen(false);
+              setSelectedReference(null);
+            }}
           >
             <motion.div
               initial={{ opacity: 0, y: 14, scale: 0.98 }}
@@ -159,7 +210,10 @@ export default function ReferenceSection() {
 
                 <button
                   type="button"
-                  onClick={() => setIsModalOpen(false)}
+                  onClick={() => {
+                    setIsModalOpen(false);
+                    setSelectedReference(null);
+                  }}
                   aria-label="Close preview"
                   className="rounded-full p-2 text-gray-500 transition hover:bg-gray-100 hover:text-gray-900"
                 >
@@ -171,7 +225,7 @@ export default function ReferenceSection() {
                 <div className={`mx-auto overflow-hidden rounded-xl border border-gray-200 bg-white ${activeView === "mobile" ? "max-w-[360px]" : "max-w-[1200px]"
                   }`}>
                   <Image
-                    src={activeView === "mobile" ? "/mobileview.png" : "/desktopview.png"}
+                    src={activeView === "mobile" ? modalItem.mobileViewImage : modalItem.webViewImage}
                     alt={activeView === "mobile" ? "Mobile reference full screenshot" : "Desktop reference full screenshot"}
                     width={activeView === "mobile" ? 535 : 2352}
                     height={10000}
