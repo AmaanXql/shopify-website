@@ -68,7 +68,7 @@ export default function UnlockFeatures() {
   };
 
   return (
-    <section id="features" className="bg-[#fafafa] py-20 lg:py-28">
+    <section id="features" className="bg-[#fafafa] py-10 md:py-16 lg:py-20">
       <motion.div
         variants={stagger}
         initial="hidden"

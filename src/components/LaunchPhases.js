@@ -42,7 +42,7 @@ const phases = [
 export default function LaunchPhases() {
 
   return (
-    <section className="py-20 lg:py-32 bg-white relative overflow-hidden">
+    <section className="relative overflow-hidden bg-white py-10 md:py-16 lg:py-20">
 
       {/* Gradient Ring (desktop only) */}
       <div className="hidden lg:block absolute right-[-350px] top-1/2 -translate-y-1/2 w-[600px] h-[500px] pointer-events-none">

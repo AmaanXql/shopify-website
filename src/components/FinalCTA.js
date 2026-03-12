@@ -5,7 +5,7 @@ import { fadeUp, viewport } from "./animations";
 
 export default function FinalCTA() {
   return (
-    <section className="relative overflow-hidden py-16 sm:py-20 lg:py-32">
+    <section className="relative overflow-hidden py-8 sm:py-16 lg:py-20">
       <div className="absolute inset-0 bg-[linear-gradient(90deg,#568EFE_2.5%,#AB28FF_100%)] opacity-25" />
 
       <motion.div

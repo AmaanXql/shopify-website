@@ -50,7 +50,7 @@ export default function TestimonialSection() {
   }, []);
 
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="bg-white py-8 md:py-16 lg:py-20">
 
       <motion.div
        variants={stagger}

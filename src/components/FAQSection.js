@@ -36,7 +36,7 @@ export default function FAQSection() {
   const [open, setOpen] = useState(null);
 
   return (
-    <section className="bg-white py-20 lg:py-28">
+    <section className="bg-white py-10 md:py-16 lg:py-20">
       <motion.div
         variants={stagger}
         initial="hidden"

@@ -98,7 +98,7 @@ export default function LaunchIncluded() {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-[#fafafa]">
+    <section className="bg-[#fafafa] py-8 md:py-16 lg:py-20">
 
       <motion.div
         variants={stagger}
@@ -111,7 +111,7 @@ export default function LaunchIncluded() {
         <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-0 md:gap-10 mb-4 md:mb-0">
 
           {/* Heading */}
-          <motion.div variants={fadeUp} className="max-w-xl mb-10 lg:mb-14">
+          <motion.div variants={fadeUp} className="max-w-xl mb-5 lg:mb-12">
             <h2 className="text-2xl sm:text-3xl font-bold mb-3">
               Everything Included in the Launch
             </h2>
@@ -124,20 +124,24 @@ export default function LaunchIncluded() {
 
 
 
-          <motion.div variants={fadeUp} className="md:text-right">
+          <motion.div
+            variants={fadeUp}
+            className="flex items-center justify-center gap-4 md:block md:text-right"
+          >
+           
 
-            <p className="text-xs tracking-[0.2em] text-gray-400 mb-1">
+            <div className="text-center">
+            <p className="pt-1 text-xs tracking-[0.2em] text-gray-00">
               FIXED PRICE
             </p>
+              <p className="text-3xl sm:text-4xl font-bold">
+                $799
+              </p>
 
-            <p className="text-3xl sm:text-4xl font-bold">
-              $799
-            </p>
-
-            <p className="text-purple-500 font-bold text-lg line-through">
-              $1499
-            </p>
-
+              <p className="text-purple-500 font-bold text-lg line-through">
+                $1499
+              </p>
+            </div>
           </motion.div>
 
         </div>
