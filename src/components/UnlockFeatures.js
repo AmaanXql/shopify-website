@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Plus, Check } from "lucide-react";
 import { motion } from "framer-motion";
 import { fadeUp, stagger, viewport } from "./animations";
@@ -16,6 +16,8 @@ const addons = [
 
 export default function UnlockFeatures() {
   const [selected, setSelected] = useState({ 1: 1, 5: 1 });
+  const [showStickyBar, setShowStickyBar] = useState(false);
+  const sectionRef = useRef(null);
 
   const summary = useMemo(() => {
     const selectedAddons = addons
@@ -67,8 +69,31 @@ export default function UnlockFeatures() {
     });
   };
 
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setShowStickyBar(entry.isIntersecting);
+      },
+      {
+        threshold: 0.15,
+      }
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="features" className="bg-[#fafafa] py-10 md:py-16 lg:py-20">
+    <section
+      id="features"
+      ref={sectionRef}
+      className="bg-[#fafafa] py-10 md:py-16 md:pb-16 lg:py-20"
+    >
       <motion.div
         variants={stagger}
         initial="hidden"
@@ -212,6 +237,31 @@ export default function UnlockFeatures() {
           </motion.div>
         </div>
       </motion.div>
+
+      {showStickyBar && (
+        <div className="fixed inset-x-0 bottom-0 z-50 border-t border-gray-200 bg-white/95 px-4 py-3 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] backdrop-blur md:hidden">
+          <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
+            <div className="min-w-0">
+              <p className="text-xs uppercase tracking-[0.2em] text-gray-400">Total</p>
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-purple-500 line-through">
+                  ${summary.grandOriginalTotal}
+                </span>
+                <span className="text-lg font-bold text-gray-900">
+                  ${summary.grandTotal}
+                </span>
+              </div>
+            </div>
+
+            <motion.button
+              whileTap={{ scale: 0.98 }}
+              className="shrink-0 rounded-full bg-gradient px-5 py-3 text-sm font-medium text-white shadow-lg"
+            >
+              Book a Call
+            </motion.button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
