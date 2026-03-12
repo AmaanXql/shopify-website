@@ -163,26 +163,26 @@ export default function LaunchIncluded() {
                 return (
                   <div
                     key={i}
-                    className="bg-white rounded-2xl p-5 sm:p-6 border border-gray-200 hover:shadow-sm transition"
+                    className="bg-white rounded-2xl border border-gray-200 p-5 text-center transition hover:shadow-sm sm:p-6 sm:text-left"
                   >
 
                     {/* Icon */}
-                    <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 mb-4">
+                    <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 sm:mx-0">
                       <Icon size={18} className="text-gray-700" />
                     </div>
 
                     {/* Title */}
-                    <h3 className="font-semibold mb-4 text-sm md:text-base">
+                    <h3 className="mb-4 text-sm font-semibold md:text-base">
                       {item.title}
                     </h3>
 
                     {/* Points */}
-                    <ul className="space-y-2 text-xs sm:text-sm text-gray-500">
+                    <ul className="space-y-2 text-xs text-gray-500 sm:text-sm">
 
                       {item.points.map((point, index) => (
                         <li
                           key={index}
-                          className="flex gap-2 items-start"
+                          className="flex items-start justify-center gap-2 text-center sm:justify-start sm:text-left"
                         >
 
                           <Check
