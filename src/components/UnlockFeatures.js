@@ -132,19 +132,30 @@ export default function UnlockFeatures() {
                     </span>
                     {addon.repeatable ? (
                       <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => decrementAddon(addon.id)}
-                          className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-200 text-gray-700 transition hover:bg-gray-300"
-                        >
-                          -
-                        </button>
-                        <span className="min-w-7 text-center text-sm font-semibold">{qty}</span>
-                        <button
-                          onClick={() => incrementAddon(addon.id)}
-                          className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-200 text-gray-700 transition hover:bg-gray-300"
-                        >
-                          <Plus size={16} />
-                        </button>
+                        {qty > 0 ? (
+                          <>
+                            <button
+                              onClick={() => decrementAddon(addon.id)}
+                              className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-200 text-gray-700 transition hover:bg-gray-300"
+                            >
+                              -
+                            </button>
+                            <span className="min-w-7 text-center text-sm font-semibold">{qty}</span>
+                            <button
+                              onClick={() => incrementAddon(addon.id)}
+                              className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-200 text-gray-700 transition hover:bg-gray-300"
+                            >
+                              <Plus size={16} />
+                            </button>
+                          </>
+                        ) : (
+                          <button
+                            onClick={() => incrementAddon(addon.id)}
+                            className="flex h-9 items-center justify-center rounded-full bg-gray-200 px-4 text-sm font-medium text-gray-700 transition hover:bg-gray-300"
+                          >
+                            Add
+                          </button>
+                        )}
                       </div>
                     ) : (
                       <button
