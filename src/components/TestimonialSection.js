@@ -62,7 +62,7 @@ export default function TestimonialSection() {
 
 
         {/* Heading */}
-        <motion.div variants={fadeUp}  className="max-w-xl mb-10 lg:mb-14">
+        <motion.div variants={fadeUp}  className="mb-8 max-w-xl lg:mb-14">
           <h2 className="text-2xl sm:text-3xl font-bold mb-3">
             Built on Trust. Proven by Results.
           </h2>
@@ -73,14 +73,14 @@ export default function TestimonialSection() {
           </p>
         </motion.div>
 
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-6 md:gap-6 items-center">
+        <div className="mx-auto flex max-w-5xl flex-col items-center gap-5 md:flex-row md:gap-6">
 
           {/* Avatar Column */}
           <motion.div variants={fadeUp} className="w-full md:w-auto">
 
             {/* Mobile Avatar + Controls */}
-            <div className="flex md:hidden flex-col items-center gap-4">
-              <div className="flex items-center justify-center gap-3">
+            <div className="flex flex-col items-center gap-4 md:hidden">
+              <div className="flex items-end justify-center gap-3">
                 {[index - 1, index, index + 1].map((i, pos) => {
                   const safeIndex = (i + testimonials.length) % testimonials.length;
                   const item = testimonials[safeIndex];
@@ -91,8 +91,8 @@ export default function TestimonialSection() {
                       key={`mobile-${safeIndex}-${pos}`}
                       className={`relative overflow-hidden rounded-xl transition-all duration-300 ${
                         isActive
-                          ? "w-24 h-24 p-[2px] bg-gradient-to-r from-blue-500 to-purple-500 scale-100"
-                          : "w-16 h-16 opacity-50 grayscale"
+                          ? "h-32 w-32 p-[2px] bg-gradient-to-r from-blue-500 to-purple-500 shadow-md"
+                          : "h-20 w-20 opacity-50 grayscale"
                       }`}
                     >
                       <Image
@@ -181,12 +181,12 @@ export default function TestimonialSection() {
           </motion.div>
 
           {/* Testimonial Card */}
-          <motion.div variants={fadeUp}  className="flex-1 w-full">
+          <motion.div variants={fadeUp}  className="w-full flex-1">
 
-            <div className="relative bg-white rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm flex flex-col justify-center w-full">
+            <div className="relative flex w-full flex-col justify-center rounded-3xl bg-white p-5 shadow-sm sm:p-8 md:p-10">
 
               {/* Quote Decoration */}
-              <div className="absolute right-2 -top-3 text-[90px] sm:text-[120px] md:text-[240px] text-gray-100 font-serif leading-none">
+              <div className="absolute right-2 top-1 text-[72px] text-gray-100 font-serif leading-none sm:-top-3 sm:text-[120px] md:text-[240px]">
                 ”
               </div>
 
@@ -201,11 +201,11 @@ export default function TestimonialSection() {
                   className="relative z-10"
                 >
 
-                  <p className="text-base sm:text-xl md:text-3xl font-medium text-gray-800 mb-6 md:mb-24 max-w-xl">
+                  <p className="mb-5 max-w-xl pr-6 text-lg font-normal leading-7 text-gray-800 sm:text-xl sm:font-medium md:mb-24 md:pr-0 md:text-3xl">
                     {current.text}
                   </p>
 
-                  <h4 className="font-bold text-lg sm:text-2xl md:text-4xl mb-1 md:mb-2">
+                  <h4 className="mb-1 text-base font-semibold sm:text-2xl sm:font-bold md:mb-2 md:text-4xl">
                     {current.name}
                   </h4>
 
