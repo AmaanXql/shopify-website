@@ -91,8 +91,8 @@ export default function TestimonialSection() {
                       key={`mobile-${safeIndex}-${pos}`}
                       className={`relative overflow-hidden rounded-xl transition-all duration-300 ${
                         isActive
-                          ? "h-32 w-32 p-[2px] bg-gradient-to-r from-blue-500 to-purple-500 shadow-md"
-                          : "h-20 w-20 opacity-50 grayscale"
+                          ? "h-36 w-36 p-[2px] bg-gradient-to-r from-blue-500 to-purple-500 shadow-md"
+                          : "h-[88px] w-[88px] opacity-50 grayscale"
                       }`}
                     >
                       <Image
