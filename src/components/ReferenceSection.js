@@ -12,8 +12,8 @@ const references = [
     category: "Category: Health & Wellness",
     previewImage: "/essentialsPreview.png",
     webViewImage: "/essentialsdesktopview.png",
-    mobileViewImage: "/essentialsdesktopview.png",
-  },  
+    mobileViewImage: "/essentialsmobileview.png",
+  },
   {
     theme: "Skincare",
     category: "Category: Health & Wellness",
@@ -31,6 +31,7 @@ export default function ReferenceSection() {
   const item = references[index];
   const modalItem = selectedReference ?? item;
   const hasMultipleReferences = references.length > 1;
+  const [direction, setDirection] = useState(0);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -55,24 +56,25 @@ export default function ReferenceSection() {
   useEffect(() => {
     if (!hasMultipleReferences) return;
     if (isModalOpen) return;
-  
+
     const interval = setInterval(() => {
+      setDirection(1); // auto scroll goes right → left
       setIndex((prev) => (prev + 1) % references.length);
-    }, 5000); // change every 5 seconds
-  
+    }, 5000);
+
     return () => clearInterval(interval);
   }, [hasMultipleReferences, isModalOpen]);
 
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
-const [hover, setHover] = useState(false);
-const handleMouseMove = (e) => {
-  const rect = e.currentTarget.getBoundingClientRect();
+  const [hover, setHover] = useState(false);
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
 
-  setCursor({
-    x: e.clientX - rect.left,
-    y: e.clientY - rect.top,
-  });
-};
+    setCursor({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
 
   return (
     <>
@@ -84,7 +86,7 @@ const handleMouseMove = (e) => {
           viewport={viewport}
           className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12"
         >
-          <motion.div variants={fadeUp} className="mb-12 max-w-xl">
+          <motion.div variants={fadeUp} className="mb-18 md:mb-20 max-w-xl">
             <h2 className="mb-3 text-2xl font-bold sm:text-3xl">Choose a Reference We Can Build Fast</h2>
             <p className="text-sm text-gray-500 sm:text-base">
               Pick one layout from our Dawn-ready references. This keeps scope fixed and delivery predictable.
@@ -94,67 +96,82 @@ const handleMouseMove = (e) => {
           <motion.div variants={stagger} className="relative flex items-center justify-center">
             {hasMultipleReferences && (
               <button
-                onClick={() => setIndex((prev) => (prev === 0 ? references.length - 1 : prev - 1))}
-                className="absolute left-0 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow"
+                onClick={() => {
+                  setDirection(-1);
+                  setIndex((prev) => (prev === 0 ? references.length - 1 : prev - 1));
+                }} className="absolute left-0 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow"
               >
                 <ChevronLeft size={20} />
               </button>
             )}
 
-            <motion.div variants={fadeUp} className="relative w-full max-w-4xl pb-2">
-              <h3 className="gradient-text absolute -top-9 left-4 text-xl font-semibold sm:text-2xl">
+            <motion.div variants={fadeUp} className="relative w-full max-w-4xl ">
+              <h3 className="gradient-text absolute -top-9 left-0  text-xl font-semibold sm:text-2xl">
                 {item.theme}
               </h3>
 
-              <AnimatePresence mode="wait">
-              <motion.button
-  key={item.previewImage}
-  initial={{ y: 100, opacity: 0 }}
-  animate={{ y: 0, opacity: 1 }}
-  exit={{ y: -100, opacity: 0 }}
-  transition={{ duration: 0.3, ease: "easeInOut" }}
-  type="button"
-  onClick={() => {
-    setActiveView("desktop");
-    setSelectedReference(item);
-    setIsModalOpen(true);
-  }}
-  onMouseMove={handleMouseMove}
-  onMouseEnter={() => setHover(true)}
-  onMouseLeave={() => setHover(false)}
-  className="relative block w-full overflow-hidden rounded-xl border border-gray-100"
->
-  <Image
-    src={item.previewImage}
-    width={1200}
-    height={700}
-    alt="reference preview"
-    priority
-    quality={100}
-    className="w-full"
-  />
+              <div className="relative w-full overflow-hidden">
 
-  {/* Cursor Preview Circle */}
-  {hover && (
-    <motion.div
-      animate={{
-        x: cursor.x - 60,
-        y: cursor.y - 60,
-      }}
-      transition={{ type: "tween", ease: "easeOut", duration: 0.3 }}
-      className="cursor-pointer absolute top-0 left-0 flex h-[90px] w-[90px] items-center justify-center rounded-full border border-white bg-black/40 text-sm font-semibold text-white backdrop-blur-md"
-    >
-      PREVIEW
-    </motion.div>
-  )}
-</motion.button>
-              </AnimatePresence>
+                <AnimatePresence mode="wait">
+                  <motion.button
+                    key={item.previewImage}
+                    custom={direction}
+                    initial={(direction) => ({
+                      x: direction > 0 ? 220 : -220,
+                      scale: 0.92,
+                      opacity: 0,
+                    })}
+                    animate={{ x: 0, scale: 1, opacity: 1 }}
+                    exit={(direction) => ({
+                      x: direction > 0 ? -220 : 220,
+                      scale: 0.85,
+                      opacity: 0,
+                    })}
+                    transition={{ duration: 0.45, ease: "easeInOut" }}
+                    type="button"
+                    onClick={() => {
+                      setActiveView("desktop");
+                      setSelectedReference(item);
+                      setIsModalOpen(true);
+                    }}
+                    onMouseMove={handleMouseMove}
+                    onMouseEnter={() => setHover(true)}
+                    onMouseLeave={() => setHover(false)}
+                    className="relative block w-full overflow-hidden rounded-xl border border-gray-100 will-change-transform">
+                    <Image
+                      src={item.previewImage}
+                      width={1200}
+                      height={700}
+                      alt="reference preview"
+                      priority
+                      quality={100}
+                      className="w-full"
+                    />
+
+                    {/* Cursor Preview Circle */}
+                    {hover && (
+                      <motion.div
+                        animate={{
+                          x: cursor.x - 60,
+                          y: cursor.y - 60,
+                        }}
+                        transition={{ type: "tween", ease: "easeOut", duration: 0.3 }}
+                        className="cursor-pointer absolute top-0 left-0 flex h-[90px] w-[90px] items-center justify-center rounded-full border border-white bg-black/40 text-sm font-semibold text-white backdrop-blur-md"
+                      >
+                        PREVIEW
+                      </motion.div>
+                    )}
+                  </motion.button>
+                </AnimatePresence>
+              </div>
             </motion.div>
 
             {hasMultipleReferences && (
               <button
-                onClick={() => setIndex((prev) => (prev + 1) % references.length)}
-                className="absolute right-0 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow"
+                onClick={() => {
+                  setDirection(1);
+                  setIndex((prev) => (prev + 1) % references.length);
+                }} className="absolute right-0 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow"
               >
                 <ChevronRight size={20} />
               </button>
@@ -190,8 +207,8 @@ const handleMouseMove = (e) => {
                     type="button"
                     onClick={() => setActiveView("desktop")}
                     className={`rounded-full px-4 py-1.5 text-sm transition ${activeView === "desktop"
-                        ? "bg-white text-[#5745FF] shadow-sm"
-                        : "text-gray-500"
+                      ? "bg-white text-[#5745FF] shadow-sm"
+                      : "text-gray-500"
                       }`}
                   >
                     Web View
@@ -200,8 +217,8 @@ const handleMouseMove = (e) => {
                     type="button"
                     onClick={() => setActiveView("mobile")}
                     className={`rounded-full px-4 py-1.5 text-sm transition ${activeView === "mobile"
-                        ? "bg-white text-[#5745FF] shadow-sm"
-                        : "text-gray-500"
+                      ? "bg-white text-[#5745FF] shadow-sm"
+                      : "text-gray-500"
                       }`}
                   >
                     Mobile

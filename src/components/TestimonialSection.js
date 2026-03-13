@@ -22,7 +22,7 @@ const testimonials = [
   {
     name: "Michael Carter",
     role: "Lifestyle Brand Owner",
-    text: "Professional, fast and extremely reliable team. The results speak for themselves.",
+    text: "Team XQL is Professional, fast and extremely reliable. For me, The best in the market right now",
     image: "/test3.jpg",
   },
 ];
@@ -53,16 +53,16 @@ export default function TestimonialSection() {
     <section className="bg-white py-8 md:py-16 lg:py-20">
 
       <motion.div
-       variants={stagger}
-              initial="hidden"
-              whileInView="show"
-              viewport={viewport}
-       className="max-w-7xl mx-auto px-4 sm:px-6">
+        variants={stagger}
+        initial="hidden"
+        whileInView="show"
+        viewport={viewport}
+        className="max-w-7xl mx-auto px-4 sm:px-6">
 
 
 
         {/* Heading */}
-        <motion.div variants={fadeUp}  className="mb-8 max-w-xl lg:mb-14">
+        <motion.div variants={fadeUp} className="mb-6 max-w-xl lg:mb-14">
           <h2 className="text-2xl sm:text-3xl font-bold mb-3">
             Built on Trust. Proven by Results.
           </h2>
@@ -73,149 +73,111 @@ export default function TestimonialSection() {
           </p>
         </motion.div>
 
-        <div className="mx-auto flex max-w-5xl flex-col items-center gap-5 md:flex-row md:gap-6">
+        <div className="mx-auto flex max-w-4xl flex-col items-center gap-5 md:flex-row md:gap-6">
 
           {/* Avatar Column */}
           <motion.div variants={fadeUp} className="w-full md:w-auto">
 
-            {/* Mobile Avatar + Controls */}
-            <div className="flex flex-col items-center gap-4 md:hidden">
-              <div className="flex items-end justify-center gap-3">
-                {[index - 1, index, index + 1].map((i, pos) => {
-                  const safeIndex = (i + testimonials.length) % testimonials.length;
-                  const item = testimonials[safeIndex];
-                  const isActive = pos === 1;
 
-                  return (
-                    <div
-                      key={`mobile-${safeIndex}-${pos}`}
-                      className={`relative overflow-hidden rounded-xl transition-all duration-300 ${
-                        isActive
-                          ? "h-36 w-36 p-[2px] bg-gradient-to-r from-blue-500 to-purple-500 shadow-md"
-                          : "h-[88px] w-[88px] opacity-50 grayscale"
-                      }`}
-                    >
-                      <Image
-                        src={item.image}
-                        className="w-full h-full object-cover rounded-xl"
-                        width={500}
-                        height={500}
-                        alt="Testimonial"
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={prev}
-                  className="w-9 h-9 rounded-full bg-white shadow flex items-center justify-center hover:bg-gray-50 transition"
-                >
-                  <ArrowLeft size={16} />
-                </button>
-
-                <button
-                  onClick={next}
-                  className="w-9 h-9 rounded-full bg-white shadow flex items-center justify-center hover:bg-gray-50 transition"
-                >
-                  <ArrowRight size={16} />
-                </button>
-              </div>
-            </div>
 
             {/* Desktop Avatar Rail */}
             <div className="hidden md:flex items-center gap-6">
 
-            {/* arrows */}
-            <div className="flex flex-col gap-3 md:gap-4">
+              {/* arrows */}
+              <div className="flex flex-col gap-3 md:gap-4">
 
-              <button
-                onClick={prev}
-                className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white shadow flex items-center justify-center hover:bg-gray-50 transition"
-              >
-                <ArrowUp size={16} />
-              </button>
+                <button
+                  onClick={prev}
+                  className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white shadow flex items-center justify-center hover:bg-gray-50 transition"
+                >
+                  <ArrowUp size={16} />
+                </button>
 
-              <button
-                onClick={next}
-                className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white shadow flex items-center justify-center hover:bg-gray-50 transition"
-              >
-                <ArrowDown size={16} />
-              </button>
+                <button
+                  onClick={next}
+                  className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white shadow flex items-center justify-center hover:bg-gray-50 transition"
+                >
+                  <ArrowDown size={16} />
+                </button>
 
-            </div>
+              </div>
 
-            {/* avatars */}
-            <div className="flex flex-col items-center gap-3 md:gap-4">
+              {/* avatars */}
 
-              {[index - 1, index, index + 1].map((i, pos) => {
-
-                const safeIndex = (i + testimonials.length) % testimonials.length;
-                const item = testimonials[safeIndex];
-                const isActive = pos === 1;
-
-                return (
-                  <div
-                    key={safeIndex}
-                    className={`relative transition-all duration-300 rounded-xl overflow-hidden
-                  ${isActive
-                        ? "w-32 h-32 md:w-44 md:h-44 p-[2px] bg-gradient-to-r from-blue-500 to-purple-500 scale-105"
-                        : "w-32 h-20 md:w-44 md:h-24 opacity-40 grayscale"
-                      }`}
-                  >
-                    <Image
-                      src={item.image}
-                      className="w-full h-full object-cover rounded-xl"
-                      width={500}
-                      height={500}
-                      alt="Testimonial"
-                    />
-                  </div>
-                );
-              })}
-
-            </div>
             </div>
 
           </motion.div>
 
           {/* Testimonial Card */}
-          <motion.div variants={fadeUp}  className="w-full flex-1">
+          <motion.div variants={fadeUp} className="w-full flex-1">
 
-            <div className="relative flex w-full flex-col justify-center rounded-3xl bg-white p-5 shadow-sm sm:p-8 md:p-10">
+            <div className="relative flex flex-col md:flex-row items-start gap-4 md:gap-6 rounded-3xl bg-white p-6 sm:p-8 md:p-10 shadow-sm">
 
-              {/* Quote Decoration */}
-              <div className="absolute right-2 top-1 text-[72px] text-gray-100 font-serif leading-none sm:-top-3 sm:text-[120px] md:text-[240px]">
-                ”
-              </div>
+              {/* Mobile Top Row */}
+              <div className="flex items-center gap-4 md:flex-col md:items-start">
 
-              <AnimatePresence mode="wait">
+                {/* Image */}
+                <div className="flex-shrink-0">
+                  <div className="w-16 h-16 md:w-32 md:h-32 rounded-xl p-[2px] bg-gradient-to-r from-blue-500 to-purple-500">
+                    <Image
+                      src={current.image}
+                      alt={current.name}
+                      width={300}
+                      height={300}
+                      className="w-full h-full object-cover rounded-xl"
+                    />
+                  </div>
+                </div>
 
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.4 }}
-                  className="relative z-10"
-                >
-
-                  <p className="mb-5 max-w-xl pr-6 text-lg font-normal leading-7 text-gray-800 sm:text-xl sm:font-medium md:mb-24 md:pr-0 md:text-3xl">
-                    {current.text}
-                  </p>
-
-                  <h4 className="mb-1 text-base font-semibold sm:text-2xl sm:font-bold md:mb-2 md:text-4xl">
+                {/* Name + Role (Mobile only) */}
+                <div className="md:hidden">
+                  <h4 className="text-base font-semibold">
                     {current.name}
                   </h4>
 
-                  <p className="text-gray-500 text-sm sm:text-base md:text-lg">
+                  <p className="text-gray-500 text-sm">
                     {current.role}
                   </p>
+                </div>
 
-                </motion.div>
+              </div>
 
-              </AnimatePresence>
+              {/* Quote */}
+              <div className="absolute right-4 top-2 text-[60px] md:text-[140px] text-gray-100 font-serif leading-none">
+                ”
+              </div>
+
+              {/* Content */}
+              <div className="flex-1">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.4 }}
+                    className="relative z-10"
+                  >
+
+                    {/* Desktop Text First */}
+                    <p className="mb-4 text-base md:text-lg leading-7 text-gray-800">
+                      {current.text}
+                    </p>
+
+                    {/* Desktop Name + Role */}
+                    <div className="hidden md:block">
+                      <h4 className="text-lg font-semibold md:text-lg">
+                        {current.name}
+                      </h4>
+
+                      <p className="text-gray-500 text-sm md:text-base">
+                        {current.role}
+                      </p>
+                    </div>
+
+                  </motion.div>
+                </AnimatePresence>
+              </div>
 
             </div>
 

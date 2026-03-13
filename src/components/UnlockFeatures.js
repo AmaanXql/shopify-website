@@ -101,7 +101,7 @@ export default function UnlockFeatures() {
         viewport={viewport}
         className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10"
       >
-        <motion.div variants={fadeUp} className="mb-12 max-w-xl">
+        <motion.div variants={fadeUp} className="mb-6 md:mb-12 max-w-xl">
           <h2 className="mb-3 text-2xl font-bold sm:text-3xl">Unlock More Features</h2>
           <p className="text-sm text-gray-500 sm:text-base">
             Extend your launch package with add-ons while keeping timeline and quality controlled.
@@ -109,7 +109,7 @@ export default function UnlockFeatures() {
         </motion.div>
 
         <div className="px-2 md:px-20 lg:px-44">
-          <motion.h3 variants={fadeUp} className="mb-6 text-lg font-semibold sm:text-xl">
+          <motion.h3 variants={fadeUp} className="mb-3 md:mb-6 text-lg font-semibold sm:text-xl">
             Add Ons
           </motion.h3>
 
@@ -253,14 +253,15 @@ export default function UnlockFeatures() {
         <div className="fixed inset-x-0 bottom-0 z-50 border-t border-gray-200 bg-white/95 px-4 py-3 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] backdrop-blur md:hidden">
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
             <div className="min-w-0">
-              <p className="text-xs uppercase tracking-[0.2em] text-gray-400">Total</p>
+              <p className="text-[9px] uppercase tracking-[0.2em] text-gray-400">Total</p>
               <div className="flex items-center gap-2">
+              <span className="text-2xl font-bold text-gray-900">
+                  ${summary.grandTotal}
+                </span>
                 <span className="text-xs text-purple-500 line-through">
                   ${summary.grandOriginalTotal}
                 </span>
-                <span className="text-lg font-bold text-gray-900">
-                  ${summary.grandTotal}
-                </span>
+                
               </div>
             </div>
 

@@ -111,7 +111,7 @@ export default function LaunchIncluded() {
         <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-0 md:gap-10 mb-4 md:mb-0">
 
           {/* Heading */}
-          <motion.div variants={fadeUp} className="max-w-xl mb-5 lg:mb-12">
+          <motion.div variants={fadeUp} className="max-w-xl mb-5 lg:mb-12 text-center md:text-left">
             <h2 className="text-2xl sm:text-3xl font-bold mb-3">
               Everything Included in the Launch
             </h2>
@@ -155,49 +155,48 @@ export default function LaunchIncluded() {
             className="overflow-hidden"
           >
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
 
               {items.map((item, i) => {
                 const Icon = item.icon;
 
                 return (
                   <div
-                    key={i}
-                    className="bg-white rounded-2xl border border-gray-200 p-5 text-center transition hover:shadow-sm sm:p-6 sm:text-left"
-                  >
+  key={i}
+  className="bg-white rounded-2xl border border-gray-200 p-5 sm:p-6 transition hover:shadow-sm flex flex-col"
+>
+  {/* Header */}
+  <div className="flex items-center gap-3 mb-4">
 
-                    {/* Icon */}
-                    <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 sm:mx-0">
-                      <Icon size={18} className="text-gray-700" />
-                    </div>
+    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 flex-shrink-0">
+      <Icon size={18} className="text-gray-700" />
+    </div>
 
-                    {/* Title */}
-                    <h3 className="mb-4 text-sm font-semibold md:text-base">
-                      {item.title}
-                    </h3>
+    <h3 className="text-sm font-semibold md:text-base">
+      {item.title}
+    </h3>
 
-                    {/* Points */}
-                    <ul className="space-y-2 text-xs text-gray-500 sm:text-sm">
+  </div>
 
-                      {item.points.map((point, index) => (
-                        <li
-                          key={index}
-                          className="flex items-start justify-center gap-2 text-center sm:justify-start sm:text-left"
-                        >
+  {/* Points */}
+  <ul className="space-y-2 text-xs sm:text-sm text-gray-500">
 
-                          <Check
-                            size={14}
-                            className="text-gray-400 mt-[2px]"
-                          />
+    {item.points.map((point, index) => (
+      <li key={index} className="flex items-start gap-2">
 
-                          {point}
+        <Check
+          size={14}
+          className="text-gray-400 mt-[3px] flex-shrink-0"
+        />
 
-                        </li>
-                      ))}
+        <span>{point}</span>
 
-                    </ul>
+      </li>
+    ))}
 
-                  </div>
+  </ul>
+
+</div>
                 )
               })}
 

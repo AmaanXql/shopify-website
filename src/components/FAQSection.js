@@ -44,14 +44,14 @@ export default function FAQSection() {
         viewport={viewport}
         className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12"
       >
-        <motion.div variants={fadeUp} className="mb-14 max-w-xl">
+        <motion.div variants={fadeUp} className="mb-6 md:mb-14 max-w-xl">
           <h2 className="mb-3 text-2xl font-bold sm:text-3xl">Frequently Asked Questions</h2>
           <p className="text-sm text-gray-500 sm:text-base">
             Answers to common launch and delivery questions.
           </p>
         </motion.div>
 
-        <motion.div variants={stagger} className="grid grid-cols-1 items-start gap-5 px-3 md:grid-cols-2 md:px-20">
+        <motion.div variants={stagger} className="grid grid-cols-1 items-start  gap-2 md:gap-5 px-3 md:grid-cols-2 md:px-20">
           {faqs.map((faq, index) => {
             const active = open === index;
             return (

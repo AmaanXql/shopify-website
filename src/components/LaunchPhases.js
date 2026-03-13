@@ -77,15 +77,15 @@ export default function LaunchPhases() {
 
           {/* Animated Line */}
           <motion.div
-            initial={{ width: "0%" }}
-            whileInView={{ width: "82%" }}
-            viewport={{ once: false, amount: 0.4 }}
-            transition={{ duration: 4, ease: "easeInOut" }}
-            className="hidden lg:block absolute top-6 left-24 h-[2px] bg-gray-800"
-          />
+  initial={{ width: "0%" }}
+  whileInView={{ width: "82%" }}
+  viewport={{ once: true, amount: 0.4 }}
+  transition={{ duration: 3, ease: "easeOut" }}
+  className="hidden lg:block absolute top-6 left-24 h-[2px] bg-gray-800"
+/>
 
           {/* Grid */}
-          <motion.div variants={fadeUp} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mt-10 md:mt-28">
+          <motion.div variants={fadeUp} viewport={{ once: true, amount: 0.3 }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mt-10 md:mt-24">
 
             {phases.map((phase, index) => (
               <div key={index} className="relative text-center ">
@@ -97,10 +97,9 @@ export default function LaunchPhases() {
 
                     <motion.div
                       initial={{ filter: "grayscale(1)" }}
-                      whileInView={{ filter: "grayscale(0)" }}
-                      viewport={{ once: false }}
-                      transition={{ delay: 4, duration: 0.5 }}
-                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center shadow-lg"
+                      whileInView={{ filter: "grayscale(0)",scale:1.25 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 3, duration: 0.4 }}                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center shadow-lg"
                     >
                       <Image
                         src="/shopify.png"
@@ -114,14 +113,14 @@ export default function LaunchPhases() {
                   ) : (
 
                     <motion.div
-                      initial={{ backgroundColor: "#e5e7eb", color: "#6b7280" }}
-                      whileInView={{ backgroundColor: "#000000", color: "#ffffff" }}
-                      viewport={{ once: false }}
-                      transition={{
-                        delay: (index + 1) * 0.7,
-                        duration: 0.5,
-                        ease: "easeInOut"
-                      }}
+  initial={{ backgroundColor: "#e5e7eb", color: "#6b7280" }}
+  whileInView={{ backgroundColor: "#000000", color: "#ffffff" }}
+  viewport={{ once: true, amount: 0.4 }}
+  transition={{
+    delay: index * 0.5,
+    duration: 0.4,
+    ease: "easeOut"
+  }}
                       className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center text-sm shadow"
                     >
                       {phase.number}

@@ -29,19 +29,19 @@ export default function Navbar() {
         </Link>
 
         <nav className="hidden items-center gap-8 text-sm md:flex">
-          <Link href="#features" className="text-gray-600 transition hover:text-black">
-            Features
+          <Link href="#features" className="text-gray-600 transition font-semibold hover:text-black">
+            Our Services
           </Link>
-          <Link href="#process" className="text-gray-600 transition hover:text-black">
+          <Link href="#process" className="text-gray-600 transition font-semibold hover:text-black">
             Process
           </Link>
-          <motion.button
+          {/* <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             className="rounded-full bg-gradient px-6 py-2 text-white shadow-md"
           >
             Start Project
-          </motion.button>
+          </motion.button> */}
         </nav>
 
         <button className="md:hidden" onClick={() => setOpen((v) => !v)} aria-label="Toggle menu">
@@ -64,9 +64,9 @@ export default function Navbar() {
               <Link href="#process" className="text-gray-600" onClick={() => setOpen(false)}>
                 Process
               </Link>
-              <button className="rounded-full bg-gradient px-6 py-2 text-white shadow-md">
+              {/* <button className="rounded-full bg-gradient px-6 py-2 text-white shadow-md">
                 Start Project
-              </button>
+              </button> */}
             </div>
           </motion.div>
         )}
