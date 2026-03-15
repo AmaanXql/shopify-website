@@ -127,9 +127,14 @@ export default function UnlockFeatures() {
                   <p className="text-gray-700">{addon.name}</p>
 
                   <div className="flex items-center gap-3">
-                    <span className="rounded-md bg-gray-100 px-3 py-1 text-sm font-semibold">
-                      ${addon.discountedPrice}
-                    </span>
+                    <div className="flex items-center gap-2 rounded-md bg-gray-100 px-3 py-1 text-sm font-semibold">
+                      {addon.originalPrice !== addon.discountedPrice && (
+                        <span className="text-xs text-purple-500 line-through">
+                          ${addon.originalPrice}
+                        </span>
+                      )}
+                      <span>${addon.discountedPrice}</span>
+                    </div>
                     {addon.repeatable ? (
                       <div className="flex items-center gap-2">
                         {qty > 0 ? (
@@ -242,7 +247,7 @@ export default function UnlockFeatures() {
                 whileTap={{ scale: 0.98 }}
                 className="rounded-full bg-gradient px-10 py-3 text-white text-sm font-medium shadow-lg"
               >
-                Book a Call
+                Book My Launch Call
               </motion.button>
             </div>
           </motion.div>
@@ -269,7 +274,7 @@ export default function UnlockFeatures() {
               whileTap={{ scale: 0.98 }}
               className="shrink-0 rounded-full bg-gradient px-5 py-3 text-sm font-medium text-white shadow-lg"
             >
-              Book a Call
+              Book My Launch Call
             </motion.button>
           </div>
         </div>

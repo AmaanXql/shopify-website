@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from "framer-motion";
-import { ShoppingBag } from "lucide-react";
 import { fadeUp, stagger, viewport } from "./animations";
 import Image from "next/image";
 
@@ -14,25 +13,25 @@ const phases = [
   },
   {
     number: "02",
-    phase: "PHASE 2 — DAYS 4-10",
+    phase: "PHASE 2 — DAYS 4-6",
     title: "Design & Planning",
     desc: "Structure, UX flow, approval",
   },
   {
     number: "03",
-    phase: "PHASE 3 — DAYS 11-15",
+    phase: "PHASE 3 — DAYS 7-13",
     title: "Build & Integration",
     desc: "Development, features, integrations",
   },
   {
     number: "04",
-    phase: "PHASE 4 — DAYS 4-10",
+    phase: "PHASE 4 — DAYS 13-14",
     title: "QA & Refinement",
     desc: "Testing, fixes, performance optimization",
   },
   {
     number: "05",
-    phase: "PHASE 5 — DAYS 4-10",
+    phase: "PHASE 5 — DAY 15",
     title: "Launch & Handover",
     desc: "Go live, training, support",
     highlight: true,
@@ -42,7 +41,7 @@ const phases = [
 export default function LaunchPhases() {
 
   return (
-    <section className="relative overflow-hidden bg-white py-10 md:py-16 lg:py-20">
+    <section id="process" className="relative overflow-hidden bg-white py-10 md:py-16 lg:py-20">
 
       {/* Gradient Ring (desktop only) */}
       <div className="hidden lg:block absolute right-[-350px] top-1/2 -translate-y-1/2 w-[600px] h-[500px] pointer-events-none">

@@ -24,6 +24,9 @@ export default function FinalCTA() {
           <p className="text-sm font-medium text-gray-700">
             Fixed deliverables and fixed pricing to get your brand to market in exactly 15 days.
           </p>
+          <p className="mt-3 text-sm text-gray-700">
+            You review and approve the store before ownership is transferred to you.
+          </p>
         </div>
 
         <motion.button
@@ -31,7 +34,7 @@ export default function FinalCTA() {
           whileTap={{ scale: 0.98 }}
           className="rounded-full bg-gradient px-6 py-3 text-sm font-medium text-white shadow-lg"
         >
-          Initiate Launch Sequence
+          Start My Launch
         </motion.button>
       </motion.div>
     </section>

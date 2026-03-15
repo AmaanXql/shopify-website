@@ -62,6 +62,7 @@ const items = [
       "Mobile responsiveness",
       "Performance optimization",
       "Final QA testing",
+      "14-day post-launch stabilization window (bug fixes + minor tweaks)",
     ],
   },
   {

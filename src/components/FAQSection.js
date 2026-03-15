@@ -8,7 +8,7 @@ import { fadeUp, stagger, viewport } from "./animations";
 const faqs = [
   {
     q: "How are you making it so quick?",
-    a: "We have custom pre made themes that can be used for quicker execution and better efficiency since they are tried and tested rigorously.",
+    a: "We use a fixed scope, a pre-approved Dawn reference, and a locked 5-phase process. No scope creep, just a clean build from day one.",
   },
   {
     q: "What if I don’t have any brand design?",
@@ -28,7 +28,7 @@ const faqs = [
   },
   {
     q: "What happens after launch?",
-    a: "You will receive guidance, training, and post-launch support.",
+    a: "You get a 30-45 min handover session plus a 14-day stabilization window for bug fixes and minor tweaks.",
   },
 ];
 
